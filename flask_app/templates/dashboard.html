@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href= "{{url_for('static', filename='css/style.css')}}">
+    <title>Dashboard</title>
+</head>
+<body>
+  <div class="header">
+    <h1>Rock On {{ user.full_name() }}!! </h1>  <button class="button"><h8><a href="/logout">Logout</a></h8></button>
+    <div>
+      <h4></h4>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="box_table">
+    <table class="table">
+      <thead>
+          <tr>
+              <th><h2>Your messages!</h2></th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for message in messages %}
+        <tr>
+          <td>
+            {{ message.first_name }} {{ message.last_name }} said at {{ message.time }}
+          </td>
+          <td>{{ message.content }}</td>
+          {% if session['uuid'] == message.receiver_id: %}
+          <td>
+                <button><a href="/messages/{{ message.id }}/delete"> Delete</a></button>
+              </td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      </tbody>
+
+      <div>
+        </table>
+        <h3>Send a message!</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {% for user in all_users %}
+              {% if user.id != session['uuid'] %}
+              <form action="/message_send" method="POST">
+                <fieldset>
+                  <legend>
+                    <label for="content">Write your Message to {{ user.first_name }}</label>
+                  </legend>
+                  <input type="text" name="content">
+                </fieldset>
+                <fieldset>
+                  <input type="hidden" name="rec_id" value={{ user.id }}>
+                </fieldset>
+                <br>
+                <button>Submit</button>
+              </form>
+              {% endif %}
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  </html>

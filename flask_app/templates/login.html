@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href= "{{url_for('static', filename='css/style.css')}}">
+        <title>login</title>
+    </head>
+<body>
+    <div class="container">
+        <div class="register">
+            <h1>Register</h1>
+            <form action="/user/create" method="POST">
+                <div class="center">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <fieldset>
+                    <legend>
+                        <label for="first_name">First Name</label>
+                    </legend>
+                    <input type="text" name="first_name">
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <label for="last_name">Last Name</label>
+                    </legend>
+                    <input type="text" name="last_name">
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <label for="email">Email</label>
+                    </legend>
+                    <input type="text" name="email">
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <label for="password">Password</label>
+                    </legend>
+                    <input type="password" name="password">
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <label for="confirm_password">Confirm Password</label>
+                    </legend>
+                    <input type="password" name="confirm_password">
+                </fieldset>
+                <br>
+                <button>Register</button>
+            </form>
+        </div>
+        <div class="login">
+            <h1>Login</h1>
+            <form action="/process_login" method="POST">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p>{{message}}</p>
+                {% endif %}
+            {% endwith %}
+                <fieldset>
+                    <legend>
+                        <label for="email">email</label>
+                    </legend>
+                    <input type="text" name="email">
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <label for="password">Password</label>
+                    </legend>
+                    <input type="password" name="password">
+                </fieldset>
+                <br>
+                <button>Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
