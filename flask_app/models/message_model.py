@@ -19,7 +19,7 @@ class Message:  # update this section with what is standard in the db
         self.User_id = data['User_id']
 
     def timeago(created_at):
-        time = humanize.naturaltime(datetime.datetime.now() - created_at)
+        time = humanize.naturaltime(datetime.now() - created_at)
         # time = created_at
 
         return time
@@ -49,15 +49,15 @@ class Message:  # update this section with what is standard in the db
         data = {
             "ID": ID
         }
+        print(query)
         results = connectToMySQL(DATABASE).query_db(query, data)
         # Create an empty list to append our instances of friends
+        print(results)
         messages = []
         # print(results)
         for message in results:
-            time = Message.timeago(message['created_at'])
-            # messages.append("time": time)
-            messages.append({'time': time})
             messages.append(message)
+            messages.append({'time': Message.timeago(message['created_at'])})
         return messages
 
 

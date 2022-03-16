@@ -8,7 +8,7 @@ flask = "*"
 pymysql = "*"
 bcrypt = "*"
 flask-bcrypt = "*"
-
+humanize = "*"
 
 [dev-packages]
 

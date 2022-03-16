@@ -9,6 +9,7 @@ def dashboard():
     if 'uuid' not in session:
         return redirect('/login')
     messages = Message.get_all_messages_by_id(session['uuid'])
+    print(len(messages))
 
     # This is a fringe case incase there is ever a time when I don't have messages in the database (Like when a new user is created)
     if messages != []:
